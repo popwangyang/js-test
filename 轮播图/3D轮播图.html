@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div {
+				overflow: hidden;
+				height: 400px;
+				margin: 0 auto;
+				position: relative;
+				background: url(images/triangles.png)
+			}
+			
+			div span {
+				width: 300px;
+				height: 180px;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				margin: auto;
+				transform-style: preserve-3d;
+				perspective: 800px;
+			}
+			
+			div span img {
+				position: absolute;
+				width: 300px;
+				height: 180px;
+				border-radius: 10px;
+				transition: transform 1s ease-in-out;
+				cursor: pointer;
+				border: 1px solid white;
+				/*-webkit-box-reflect:below 5px ;*/
+			}
+			
+			div span img:hover {
+				border: 1px solid #0033FF;
+				box-shadow: 1px 1px 2px #0033FF;
+			}
+			
+			ul,
+			body,
+			html {
+				margin: 0;
+				padding: 0;
+			}
+			
+			ul {
+				position: absolute;
+				bottom: 10px;
+				left: 40%;
+			}
+			
+			.active {
+				background: yellow;
+			}
+			
+			li {
+				list-style: none;
+				width: 20px;
+				height: 20px;
+				border-radius: 50%;
+				background: red;
+				float: left;
+				margin: 0 20px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="a">
+			<span>
+				<img src="images/img1.jpg"/>
+				<img src="images/img2.jpg"/>
+				<img src="images/img3.jpg"/>
+				<img src="images/img4.jpg"/>
+				<img src="images/img5.jpg"/>
+				
+			</span>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+
+		</div>
+		<script src="jquery-1.11.0.js"></script>
+		<script>
+			
+			function lunbo(id) {
+				this.span = $("#" + id);
+				this.img = this.span.find("img");
+				this.li = this.span.find("li");
+				//this.arrimg=this.img;
+				this.length = this.img.length;
+				this.num = 2; //与当前显示图片的索引保持一致
+				_this = this;
+				this.timer = null;
+				this.arrx = []; //存放tranlateX值的数组
+				this.arry = []; //存放tranlateY值的数组
+				this.arrz = []; //存放tranlatez值的数组
+
+				this.span.on("mouseover", "img", function() {
+					clearInterval(timer);
+
+					//console.log(timer)
+				});
+				this.span.on("click", "img", function() { //点击任意一张图片将他移动到显示区；
+					var n = $(this).index() - _this.num; //点击图片的索引与当前显示区域图片索引之差；
+					var m = n > 0 ? n : n + 5; //m为移动的次数，
+					//console.log($(this).index(),_this.num)
+
+					for(var i = 0; i < m; i++) {
+						foo.move()
+					}
+
+					//console.log($(this).index(),_this.num,Math.abs($(this).index()-_this.num))
+					_this.num = $(this).index();
+
+				})
+
+				this.span.on("mouseout", "img", function() {
+					//this.timer=null;
+
+					timer = setInterval(function() {
+						foo.move();
+						//console.log("aa")
+					}, 2000)
+				});
+				this.int = function() {
+					var _this = this;
+					var n = _this.img.length;
+					for(var i = 0; i < _this.img.length; i++) {
+						var Z = ((-100 / 3) * i * i + (400 / 3) * i + 100) * 1;
+						var X = (n - 1) / 2 * 150 - 150 * i;
+						if(X == 0) {
+							var Y = 0;
+							Z = 300;
+						} else {
+							var Y = -(Z / 10) * X / Math.abs(X);
+						}
+						this.arrx.push(X);
+						this.arry.push(Y);
+						this.arrz.push(Z);
+
+						_this.img.eq(i).css({
+							transform: 'translateX(' + X + 'px) translateZ(' + Z + 'px) rotateY(' + Y + 'deg)'
+						});
+					}
+
+				}
+				this.int();
+				//console.log(this.arrx,this.arry,this.arrz)
+			}
+			lunbo.prototype.move = function() {
+				//console.log(this.img)
+				for(var i = 0; i < this.img.length; i++) {
+					if((i - 1) == -1) {
+						this.img.eq(i).css({
+							transform: 'translateX(' + this.arrx[this.img.length - 1] + 'px) translateZ(' + this.arrz[this.img.length - 1] + 'px) rotateY(' + this.arry[this.img.length - 1] + 'deg)'
+						})
+
+					} else {
+						this.img.eq(i).css({
+							transform: 'translateX(' + this.arrx[i - 1] + 'px) translateZ(' + this.arrz[i - 1] + 'px) rotateY(' + this.arry[i - 1] + 'deg)'
+						})
+
+					}
+
+				}
+				//console.log(this.img.eq(1),this.arrx[1+1],this.arry[1+1],this.arrz[1+1])
+
+				this.img.push(this.img[0]);
+				this.img.splice(0, 1);
+				this.num++;
+				if(this.num > 4) {
+			     	this.num = 0;
+					//console.log("nn")
+				}
+				this.li.eq(this.num).addClass("active").siblings().removeClass("active");
+				console.log(this.li.eq(this.num))
+				//console.log(this.img)
+
+			}
+
+			var foo = new lunbo("a");
+			this.timer = setInterval(function() {
+				foo.move();
+				console.log("cc")
+			}, 2000)
+		</script>
+	</body>
+	</ht<html>

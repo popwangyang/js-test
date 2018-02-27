@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			html{height: 100%;}
+			body{background: url(bg.jpg);margin: 0; padding: 0;height: 100%; }
+			img{ width: 20px; position: absolute;}
+		</style>
+	</head>
+	<body>
+		<script src="包装函数.js"></script>
+			<script>
+				function Fireworm(){
+					this.ele=document.createElement("img");
+					this.ele.src="1.jpg";
+				}
+				Fireworm.prototype.show=function(){
+					this.ele.style.left=this.pointX+"px";
+					this.ele.style.top=this.pointY+"px";
+					document.body.appendChild(this.ele);
+					
+				}
+				Fireworm.prototype.newpoint=function(){
+					this.pointX=Math.ceil(Math.random()*(document.body.offsetWidth-50));
+					this.pointY=Math.ceil(Math.random()*(document.body.offsetHeight-50));
+					
+				}
+				Fireworm.prototype.fly=function(){
+					var _this=this;
+					this.newpoint();
+					Move(this.ele,{"left":this.pointX,"top":this.pointY},function(){
+						_this.fly();
+					})
+				}
+				for(var i=0;i<20;i++){
+					var Warr=new Fireworm();
+					Warr.newpoint();
+					Warr.show();
+					Warr.fly();
+					
+				}
+			</script>
+	</body>
+</html>

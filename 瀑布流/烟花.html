@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			div{width: 50px; height: 50px; border-radius: 50%; position: absolute; background: red;}
+			span{ position: absolute;background: black; width: 5px; height: 5px; display: block;}
+		</style>
+	</head>
+	<body>
+		<script src="包装函数.js"></script>
+		<script>
+			var box=document.getElementsByTagName("body")[0];
+			document.onmousedown=function(e){
+				var evt=e||event;
+				 var oDiv=document.createElement("div");
+				 		box.appendChild(oDiv);
+				        oDiv.style.left=evt.clientX+"px";
+				        oDiv.style.top=document.documentElement.clientHeight+"px"||document.body.clientHeight+"px";
+				        console.log(evt.clientX,evt.clientY)
+				        var y=evt.clientY;
+				       var x=evt.clientX;
+				        
+				        
+			                Move(oDiv,{"top": y},fn);
+			                function fn(){
+				      	   box.removeChild(oDiv)
+				      	   var num=Math.ceil(Math.random()*20+10);
+				      	   for(var i=0;i<10;i++){
+				      	   	var a=document.createElement("span");
+				      	   	a.style.left=x+"px";
+				      	   	a.style.top=y+"px"
+				      	   	box.appendChild(a);
+				      	   	 }
+				      	   var a=document.getElementsByTagName("span");
+				      	   for(let i=0;i<a.length;i++){
+				      	   
+				      	    a[i].ispeedx=Math.ceil(Math.random()*20+1)*(Math.random()>0.5? 1:-1);
+				      	   a[i].ispeedy=Math.ceil(Math.random()*20+1)*(Math.random()>0.5? 1:-1);
+				      	   	
+				      	   var timer=a[i].timer;
+				      	   timer=setInterval(function(){
+				      	   		
+				      	   		a[i].style.left=a[i].offsetLeft+a[i].ispeedx+"px";
+				      	   		a[i].style.top=a[i].offsetTop+a[i].ispeedy++ +"px"; 	
+				      	   		
+				      	   		if(a[i].offsetTop>=document.documentElement.clientHeight){
+				      	   			
+				      	   				box.removeChild(a[i]);
+				      	   				
+				      	   		}
+				      	   	},100)
+				    }
+				      	   	
+				      	   	
+				      	  
+				      	   
+				      }
+				      
+			 }
+				      
+				     
+			
+			
+		</script>
+	</body>
+</html>

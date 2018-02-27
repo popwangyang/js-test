@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title></title>
+<script type="text/javascript">
+		document.onclick=function (e){
+		    var oEvent = e||event;
+		    var aDiv=[];
+		    var newDiv=document.createElement('div');
+		    var i=0;
+		    var x=oEvent.clientX;
+		    var y=oEvent.clientY;
+		    newDiv.style.position='absolute';
+		    newDiv.style.background='#' + Math.floor(Math.random()*16777215).toString(16);
+		    newDiv.style.width='15px';
+		    newDiv.style.height='15px';
+		    newDiv.style.borderRadius= 50 + '%';
+		    newDiv.style.left=oEvent.clientX+'px';
+		    newDiv.style.top=document.documentElement.clientHeight+'px';
+		    document.body.appendChild(newDiv);
+		    var t=setInterval(function (){
+		        if(newDiv.offsetT  op<=y){
+		            clearInterval(t);
+		            show();
+		            document.body.removeChild(newDiv);
+		        }
+		        newDiv.style.top=newDiv.offsetTop-30+'px';
+		    }, 30);
+		    function show(){
+		        var oDiv=null;
+		        for(i=0;i<200;i++){
+		            oDiv=document.createElement('div');
+		            oDiv.style.width='10px';
+		            oDiv.style.height='10px';
+					oDiv.style.background = '#' + Math.floor(Math.random()*16777215).toString(16);
+		            oDiv.style.position='absolute';
+		            oDiv.style.left=x+'px';
+		            oDiv.style.top=y+'px';
+		   		    oDiv.style.borderRadius= 50 + '%';
+		   		    oDiv.style.border= 'solid 1px #fff'
+		            var a=Math.random()*360;
+		            oDiv.speedX=Math.sin(a*180/Math.PI)*20*Math.random();
+		            oDiv.speedY=Math.cos(a*180/Math.PI)*20*Math.random();
+		            document.body.appendChild(oDiv);
+		            aDiv.push(oDiv);
+		        }
+		    }
+		    setInterval(doMove, 30);
+		    function doMove(){
+		        for(i=0;i<aDiv.length;i++){
+		            aDiv[i].style.left=aDiv[i].offsetLeft+aDiv[i].speedX+'px';
+		            aDiv[i].style.top=aDiv[i].offsetTop+aDiv[i].speedY+'px';
+		            aDiv[i].speedY+=1;
+		            if(aDiv[i].offsetLeft<0 || aDiv[i].offsetLeft>document.documentElement.clientWidth || aDiv[i].offsetTop<0 || aDiv[i].offsetTop>document.documentElement.clientHeight)
+		            {
+		                document.body.removeChild(aDiv[i]);
+		                aDiv.splice(i, 1);
+		            }
+		        }
+		    }
+		}
+</script>
+</head>
+<body style="overflow:hidden; background:black;">
+</body>
+</html>

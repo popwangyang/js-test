@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	li{ padding:10px; font-size:16px; list-style:none; float: left;}
+	img{ margin-bottom:10px;}
+	a{ display:block;width:100px; line-height: 40px; text-align: center; text-decoration: none;  border-radius:5px; background:red;height: 40px; outline: none; border: 1px solid red; color: #EAEAEA; font-size: 18px; font-weight: 700; position: absolute; top: 10px; right: 10px;}
+	
+</style>
+</head>
+
+<body>
+<ul></ul>
+<a href="index.html">返回首页</a>
+<script src="common.js"></script>
+<script>
+	var sj={
+			"01":{
+				"id":01,
+				"imgsrc":"img/1.jpg",
+				"dname":"联系电脑",
+				"price":"$5000"
+				},
+				"02":{
+				"id":02,
+				"imgsrc":"img/2.jpg",
+				"dname":"联想电脑",
+				"price":"$8000"
+				},
+				"03":{
+				"id":03,
+				"imgsrc":"img/3.jpg",
+				"dname":"神州电脑",
+				"price":"$1100"
+				},
+				"04":{
+				"id":04,
+				"imgsrc":"img/1.jpg",
+				"dname":"步步高电脑",
+				"price":"$1040"
+				},
+				"05":{
+				"id":05,
+				"imgsrc":"img/5.jpg",
+				"dname":"小霸王电脑",
+				"price":"$1200"
+				},
+				"06":{
+				"id":06,
+				"imgsrc":"img/1.jpg",
+				"dname":"战神电脑",
+				"price":"$1230"
+				}
+				
+		} 
+	var str="";
+	var oul=document.getElementsByTagName("ul")[0];
+	if(getCookie("cart")){
+				var objCookie=JSON.parse(getCookie("cart"));
+				console.log(getCookie("cart"))
+			}else{
+				var objCookie={};
+				}
+	for(var i in objCookie){
+			var obj=sj[i]
+		str+="<li><img src='"+obj.imgsrc+"'><p>"+obj.dname+"</p><i>"+obj.price+"</i><i style='font-size:20px; color:red; font-weight:500;'>'"+objCookie[i]+"'</i><input type='button' value='删除' oIndex='"+i+"'></li>"}
+		oul.innerHTML+=str
+		
+		var inpt=document.getElementsByTagName("input");
+			for(var i=0;i<inpt.length;i++){
+					inpt[i].onclick=function(){
+							var num=this.getAttribute("oIndex");
+							   oul.removeChild(this.parentNode);
+							   delete objCookie[num];
+							   
+							   
+							var strCookie=JSON.stringify(objCookie);
+							setCookie("cart",strCookie,7);
+							//console.log(strCookie.length,strCookie)
+							if(strCookie.length==2){
+							   	removeCookie("cart");
+							   }
+							 }
+							
+						}
+			
+			
+		
+</script>
+</body>
+</html>

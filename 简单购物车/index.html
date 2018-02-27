@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+
+<style>
+	ul{ margin:0; padding:0;}
+	li{ float:left; padding:20px; margin:20px; width:220px; cursor:pointer; list-style:none;}
+	p{ font-size:16px;  font-weight:600; margin:10px 0;}
+	input{ width:120px; height:50px; line-height:50px; text-align:center; background:#F00; font-size: 20px; font-weight: 500;  outline:none; border:#000 1px solid; border-radius:5px;}
+	a{ text-decoration:none; background:#FFF; font-size:16px;}
+	input:active {color:red; background: white; border-color: blanchedalmond; }
+	#cartNum {
+				position: absolute;
+				width: 120px;
+				height: 40px;
+				line-height: 40px;
+				text-align: center;
+				right: 10px;
+				top: 10px;
+				border: 1px solid red;
+				border-radius: 5px;
+			}
+			
+			#cartNum span {
+				margin-left: 10px;
+				color: red;
+			}
+	
+</style>
+</head>
+
+<body>
+<ul id="oul"></ul>
+<div id="cartNum"><a href="2.html" id="aaa">购物篮<span>0</span></a></div>
+<script src="common.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var sj={
+			"01":{
+				"id":01,
+				"imgsrc":"img/1.jpg",
+				"dname":"联系电脑",
+				"price":"$5000"
+				},
+				"02":{
+				"id":02,
+				"imgsrc":"img/2.jpg",
+				"dname":"联想电脑",
+				"price":"$8000"
+				},
+				"03":{
+				"id":03,
+				"imgsrc":"img/3.jpg",
+				"dname":"神州电脑",
+				"price":"$1100"
+				},
+				"04":{
+				"id":04,
+				"imgsrc":"img/1.jpg",
+				"dname":"步步高电脑",
+				"price":"$1040"
+				},
+				"05":{
+				"id":05,
+				"imgsrc":"img/5.jpg",
+				"dname":"小霸王电脑",
+				"price":"$1200"
+				},
+				"06":{
+				"id":06,
+				"imgsrc":"img/1.jpg",
+				"dname":"战神电脑",
+				"price":"$1230"
+				}
+				
+		} 
+		var oul=document.getElementById("oul");
+		var ospan=document.getElementById("cartNum").children[0].children[0];
+		var tala=0;
+		var str="";
+		for(var i in sj){
+				str+="<li><a href='1.html?"+i+"'><img src='"+sj[i].imgsrc+"'></a><p>"+sj[i].dname+"</p><h4>"+sj[i].price+"</h4><b></b><input type='button' value='加入购物车' q='"+i+"'></li>"
+			}
+			oul.innerHTML+=str;
+			if(getCookie("cart")){
+				
+					var objCookie=JSON.parse(getCookie("cart"));
+				}else{
+					var objCookie={};
+					}
+				var t=0;
+				for(var i in objCookie){
+						t=t+objCookie[i];
+					}
+					ospan.innerHTML=t;
+				
+			var inpt=document.getElementsByTagName("input");
+			for(var i=0;i<inpt.length;i++){
+					inpt[i].onclick=function(){
+						
+							var oIndex=this.getAttribute("q");
+							
+							if(!objCookie[oIndex]){
+									objCookie[oIndex]=1;
+								}else{
+									objCookie[oIndex]++;
+									}
+									t++;
+									
+								var strCookie=JSON.stringify(objCookie);
+								
+								setCookie("cart",strCookie,7);
+								ospan.innerHTML=t;
+								console.log(getCookie("cart"),strCookie,objCookie);
+						}
+				}
+</script>
+</body>
+</html>

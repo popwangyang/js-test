@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	#_a{display:block;width:100px; line-height: 40px; text-align: center; text-decoration: none;  border-radius:5px; background:red;height: 40px; outline: none; border: 1px solid red; color: #EAEAEA; font-size: 18px; font-weight: 700; position: absolute; top: 10px; right: 10px;}
+	span{ display: block; padding:20px; margin:20px; width:220px; cursor:pointer; list-style:none;}
+	p{ font-size:16px;  font-weight:600; margin:10px 0;}
+	input{ width:120px; height:50px; line-height:50px; text-align:center; background:#F00; font-size: 20px; font-weight: 500;  outline:none; border:#000 1px solid; border-radius:5px;}
+	a{ text-decoration:none; background:#FFF; font-size:16px;}
+	input:active {color:red; background: white; border-color: blanchedalmond; }
+	#_aa{ font-style: normal; background:red; color:white; font-weight:bold; font-size:20px;display: block; width: 100px ; height: 40px; border:1px black solid; border-radius: 5px; position: absolute; top: 100px; right:10px ; line-height: 40px; text-align: center;}
+	
+</style>
+</head>
+
+<body>
+	<div>
+			<a href="index.html" id="_a">返回首页</a>
+			
+	</div>
+	<a href="2.html" id="_aa"></a>
+		
+	<script src="common.js"></script>
+	<script>
+		
+		var sj={
+			"01":{
+				"id":01,
+				"imgsrc":"img/1.jpg",
+				"dname":"联系电脑",
+				"price":"$5000"
+				},
+				"02":{
+				"id":02,
+				"imgsrc":"img/2.jpg",
+				"dname":"联想电脑",
+				"price":"$8000"
+				},
+				"03":{
+				"id":03,
+				"imgsrc":"img/3.jpg",
+				"dname":"神州电脑",
+				"price":"$1100"
+				},
+				"04":{
+				"id":04,
+				"imgsrc":"img/1.jpg",
+				"dname":"步步高电脑",
+				"price":"$1040"
+				},
+				"05":{
+				"id":05,
+				"imgsrc":"img/5.jpg",
+				"dname":"小霸王电脑",
+				"price":"$1200"
+				},
+				"06":{
+				"id":06,
+				"imgsrc":"img/1.jpg",
+				"dname":"战神电脑",
+				"price":"$1230"
+				}
+				
+		} 
+		var div=document.getElementsByTagName("div")[0];
+		var num=""+location.search.split('')[1]+location.search.split('')[2];
+		var i=document.getElementById("_aa");
+		var tale;
+		
+			var str="<span><a href='1.html?"+num+"'><img src='"+sj[num].imgsrc+"'></a><p>"+sj[num].dname+"</p><h4>"+sj[num].price+"</h4><b></b><input type='button' value='加入购物车' q='"+num+"'></span>"
+			div.innerHTML+=str;
+			if(getCookie("cart")){
+				var objCookie=JSON.parse(getCookie("cart"));
+				if(objCookie[num]){
+					tale=objCookie[num];}
+				else{
+					tale=0;
+				}
+				
+			}else{
+				var objCookie={};
+					tale=0;
+			}
+				i.innerHTML=tale+"件";
+				console.log(tale);
+			var inpt=document.getElementsByTagName("input")[0];
+				inpt.onclick=function(){
+					if(!objCookie[num]){
+						objCookie[num]=1;
+					}else{
+						objCookie[num]++;
+					}
+					tale=objCookie[num];
+					i.innerHTML=tale+"件";
+					var strCookie=JSON.stringify(objCookie);
+					setCookie("cart",strCookie,7);
+				}
+	</script>
+	
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+			<style>
+				div{ width: 1000px; overflow: auto; margin: 0 auto;}
+				div ul{ padding: 0; margin: 0;position: relative;width: 1000px;}
+				div li{list-style: none;  padding: 10px;}
+				div img{width: 230px;}
+			</style>
+	</head>
+	<body>
+		<div>
+			<ul id="a">
+				
+			</ul>
+		</div>
+		<script>
+			
+			var aUl=document.getElementById("a");
+			
+			var aWidth=aUl.offsetWidth;
+			var num=Math.floor(aWidth/250);
+			var arr=[];
+			for(var i=0;i<num;i++){
+				var Li=document.createElement("li");
+				var Img=document.createElement("img");
+				Img.src="img/"+foo()+".jpg";
+				
+				Li.style.float="left";
+				Li.appendChild(Img);
+				aUl.appendChild(Li);
+				
+			}
+		window.onload=function(){
+			var clientHeight=document.documentElement.clientHeight||document.body.clientHeight;
+			var ali=document.getElementsByTagName("li");
+			for(var i=0;i<ali.length;i++){
+				arr.push(ali[i].offsetHeight);
+			}
+			var minx=Math.min.apply(null,arr);
+			
+		if(minx<=clientHeight){
+			var a=document.createElement("li");
+			var b=document.createElement("img");
+			a.style.position="absolute";
+			b.src="img/"+foo()+".jpg";
+			a.appendChild(b);
+			aUl.appendChild(a);
+			a.style.left=ali[IndexMint(arr)].offsetLeft+"px";
+			a.style.top=ali[IndexMint(arr)].offsetTop+ali[IndexMint(arr)].offsetHeight+"px";
+			arr[IndexMint(arr)]+=
+		}
+	
+	
+
+		
+			
+			
+		}
+			function foo(){
+				var num=Math.ceil(Math.random()*36);
+				return num;
+			}
+			function IndexMint(arrH){
+				var mint=Math.min.apply(null,arrH);
+				var Index=arrH.indexOf(mint);
+				return Index;
+			}
+		</script>
+	</body>
+</html>

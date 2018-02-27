@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+
+	<body>
+		<p>asdc</p>
+		<p class="a">asdc</p>
+		<script src="jquery-1.11.0.js"></script>
+		<script>
+			(function($) {
+				$.fn.extend({
+					color: function(options) {
+						var defaults = {
+							color: 'blue',
+							size: "30px"
+						};
+						options = $.extend({}, defaults, options);
+						return $(this).each(function() {
+							$(this).css({
+								'color': options.color
+							});
+							$(this).css({
+								'font-size': options.size
+							});
+						});
+					}
+				});
+				console.log(this)
+			})(window.jQuery); //此处也可写成(jQuery);
+			$(".a").color({})
+		</script>
+	</body>
+
+</html>
