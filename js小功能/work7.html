@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+<head>
+<style>
+   ul{ padding:0;  display:flex;  }
+   li{ list-style:none; margin:0 10px; }
+   div{position:absolute; left:0; right:0; top:0; bottom:0; margin:auto;}
+	button{margin:10px; border:0; background-size:cover;}
+	
+	
+</style>
+
+</head>
+
+<body>
+<div>
+ 	<ul>
+    <li><button ></button></li>
+    <li><button ></button></li>
+    <li><button ></button></li>
+    <li><button ></button></li>
+    <li><button ></button></li>
+    </ul>
+    
+</div>  
+   
+
+<script>
+    var img=["img/1.jpg","img/2.jpg","img/3.jpg","img/4.jpg","img/5.jpg"];
+    var w=[68,68,68,68,68];
+    var h=[73,73,73,73,73];
+	var btn=document.getElementsByTagName("button");
+    for(var i=0;i<btn.length;i++){
+	btn[i].style.width=w[i]+"px";
+	btn[i].style.height=h[i]+"px";
+	btn[i].style.backgroundImage="url("+img[i]+")";
+	btn[i].index=i;//储存每个按钮的的下标。
+	btn[i].onmousemove=function(){
+		        num=this.index;
+				too(w[num],h[num],btn[num]);
+        }
+	btn[i].onmouseout=function(){
+				foo(w[num],h[num],btn[num]);
+		     }
+    }
+function too(a,b,btn){
+	x=Math.abs(event.offsetX-a/2);
+	y=Math.abs(event.offsetY-b/2);
+ var m=Math.pow(a,2)+Math.pow(b,2)
+ var zz=Math.sqrt(m)/2;	
+ var c=Math.pow(x,2)+Math.pow(y,2);
+ var z=Math.sqrt(c);
+ var n=1+(1-z/zz);
+     btn.style.width=a*n+"px";
+     btn.style.height=b*n+"px";
+   }	
+function foo(x,y,z){
+		z.style.width=x+"px";
+ 		 z.style.height=y+"px";
+		}
+</script>	
+</body>
+</html>

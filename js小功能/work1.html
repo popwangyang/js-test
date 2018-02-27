@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<style>
+	
+	div:nth-child(1){width:1000px; height:350px; background:#fff; margin:0 auto;}
+	#te{width:1000px; height:200px; border:#03F 2px solid; border-radius:10px; font-size:28px; }
+	
+	#but{width:150px; height:50px; background:#06F; border-radius:10px; color:#FFF; font-size:24px; margin-top:40px;}
+	#sp{ display:inline-block; float:right; width:170px; height:50px; border:#F00 1px solid; border-radius:5px; color:#F00; font-size:18px; line-height:50px; text-align:center;}
+	div:nth-child(2){ width:1000px; height:500px; margin:0 auto;}
+	#parent{ width:200px; background:#06F; border-radius:5px; color:#FFF; font-size:24px; height:40px; line-height:40px; text-align:center;}
+	#child{ background:#90F; border-radius:5px; color:#FFF; font-size:24px; width:150px; height:40px; line-height:40px; text-align:center;}
+    </style>
+</head>
+
+<body>
+<div>
+	<textarea id="te" ></textarea><br>
+	<button id="but">注册登录</button>
+    <span id="sp" ></span>
+
+</div>
+<div>
+	<form>
+    	<select id="parent" onChange="foo()">
+            <option value="0">--</option>
+        	<option value="1">河南省</option>
+            <option value="2">河北省</option>
+            <option value="3">湖南省</option>
+            <option value="4">湖北省</option>
+            <option value="5">四川省</option>
+        </select>
+       <select id="child"></select>
+    
+    </form>
+	
+</div>
+<script>
+	te.oninput=function(){
+				var a=document.getElementById("te").value;
+				//console.log( a);
+				var b=a.split("");
+				//console.log(b);
+				if(b.length<=114){
+						var num=114-b.length;
+						var s=document.getElementById("sp");
+							
+							s.innerHTML="还可以输入"+num+"字";
+							//console.log(s.innerHTML);
+					}else{
+							te.maxLength=114;
+								//console.log(tex);
+						}
+		}
+</script>
+<script>
+	    var str=",郑州,开封,洛阳,南阳,漯,许昌,三门峡,平顶山,周口,驻马店,新乡,鹤壁,焦作,濮阳,安阳,商丘,信阳,济源";
+		var str_1=",石家庄,唐山,邯郸,秦皇岛,邢台,保定,张家口,承德,廊坊,沧州,衡水";
+		var str_2="、长沙市、株洲市、湘潭市、衡阳市、邵阳市、岳阳市、常德市、张家界市、益阳市、郴州市、永州市、怀化市、娄底市";
+		var str_3="、武汉市、黄石市、襄樊市、十堰市、荆州市、宜昌市、荆门市、鄂州市、孝感市、黄冈市、咸宁市、随州市、恩施市、仙桃市、潜江市、天门市";
+		var str_4="、蒲江县、新津县、荣县、合江县、安县、广元市、威远县、隆昌县、峨眉山市、犍为县、夹江县、阆中市、营山县、蓬安县、彭山县、宜宾县、广安市、华蓥市、岳池县、武胜县、邻水县、达州市、开江县、雅安市、乐至县、会理县、资阳市、简阳市"
+		var str_=str.split(",");
+		var str1=str_1.split(",");
+		var str2=str_2.split("、");
+		var str3=str_3.split("、");
+		var str4=str_4.split("、");
+		//console.log(str_);
+		function too(val,tex){
+				var opt=document.createElement("option");
+					opt.value = val;
+					opt.text  = tex;
+					child.options.add(opt);
+			}
+		function foo(){
+				
+			var parent=document.getElementById("parent");
+			var a=parent.value;
+			//console.log(typeof parent.value);
+			var child=document.getElementById("child");
+			var child_length=child.options.length;
+			if(child_length>0){
+			for(var i=0;i<child_length;i++){
+						child.remove(0);//remove小括号中的数字n表示从下标为n的选项。
+				}
+		}
+		    	//console.log(child_length);
+			if(a=="1"){
+					for(var i=0;i<str_.length;i++){
+								tex=str_[i];
+								val=a;
+								too(val,tex);
+						}
+				}
+		  if(a=="2"){
+					for(var i=0;i<str1.length;i++){
+								tex=str1[i];
+								val=a;
+								too(val,tex);
+						}
+				}
+		if(a=="3"){
+					for(var i=0;i<str2.length;i++){
+								tex=str2[i];
+								val=a;
+								too(val,tex);
+						}
+				}
+		if(a=="4"){
+					for(var i=0;i<str3.length;i++){
+								tex=str3[i];
+								val=a;
+								too(val,tex);
+						}
+				}
+		if(a=="5"){
+					for(var i=0;i<str4.length;i++){
+								tex=str4[i];
+								val=a;
+								too(val,tex);
+						}
+				}
+	}
+	
+</script>
+
+</body>
+</html>
